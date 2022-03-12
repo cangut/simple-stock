@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,5 +17,6 @@ public class StockOpenedEvent extends BaseEvent {
     private String productCode;
     private String productName;
     private ProductType productType;
-    private String availableStock;
+    private int availableStock;
+    private Date createdDate;
 }
