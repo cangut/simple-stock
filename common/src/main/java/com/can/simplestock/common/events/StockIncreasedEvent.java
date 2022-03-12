@@ -11,5 +11,5 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 public class StockIncreasedEvent extends BaseEvent {
-    private String amount;
+    private int amount;
 }

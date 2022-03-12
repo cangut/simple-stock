@@ -9,5 +9,5 @@ public class OpenStockCommand extends BaseCommand {
     private String productCode;
     private String productName;
     private ProductType productType;
-    private String availableStock;
+    private int availableStock;
 }
