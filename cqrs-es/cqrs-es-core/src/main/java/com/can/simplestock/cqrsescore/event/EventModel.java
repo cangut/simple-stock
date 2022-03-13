@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @Builder
 @Document(collection = "eventStore")
-public class EventModel {
+public class EventModel extends BaseEventModel{
     private Date occurredOn;
     private String aggregateIdentifier;
     private String aggregateType;

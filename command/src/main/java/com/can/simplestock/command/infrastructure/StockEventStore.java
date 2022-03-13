@@ -7,6 +7,7 @@ import com.can.simplestock.cqrsescore.event.EventStore;
 import com.can.simplestock.cqrsescore.exceptions.AggregateNotFoundException;
 import com.can.simplestock.cqrsescore.exceptions.OptimisticConcurrencyException;
 import com.can.simplestock.cqrsescore.messages.BaseEvent;
+import com.can.simplestock.cqrsescore.producers.EventProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +19,12 @@ import java.util.stream.Collectors;
 public class StockEventStore implements EventStore {
 
     private final StockEventStoreRepository eventStoreRepository;
+    private final EventProducer eventProducer;
 
     @Autowired
-    public StockEventStore(StockEventStoreRepository eventStoreRepository) {
+    public StockEventStore(StockEventStoreRepository eventStoreRepository, EventProducer eventProducer) {
         this.eventStoreRepository = eventStoreRepository;
+        this.eventProducer = eventProducer;
     }
 
     @Override
@@ -47,6 +50,10 @@ public class StockEventStore implements EventStore {
                     .build();
 
             var persistentEvent = eventStoreRepository.save(eventModel);
+
+            if (!persistentEvent.getId().isEmpty()) {
+                eventProducer.produce(event.getClass().getSimpleName(), event);
+            }
         }
     }
 
