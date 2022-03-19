@@ -1,6 +1,6 @@
 package com.can.simplestock.query.infrastructure;
 
-import com.can.simplestock.cqrsescore.command.CommandHandlerMethod;
+import com.can.simplestock.cqrsescore.domain.BaseEntity;
 import com.can.simplestock.cqrsescore.query.BaseQuery;
 import com.can.simplestock.cqrsescore.query.QueryDispatcher;
 import com.can.simplestock.cqrsescore.query.QueryHandlerMethod;
@@ -23,7 +23,7 @@ public class StockQueryDispatcher implements QueryDispatcher {
     }
 
     @Override
-    public void send(BaseQuery query) {
+    public <T extends BaseEntity> List<T> send(BaseQuery query) {
         var handler  = handlers.get(query.getClass());
 
         if (handler == null || handlers.size() == 0) {
@@ -34,6 +34,6 @@ public class StockQueryDispatcher implements QueryDispatcher {
             throw new RuntimeException("Query has to have only one handler");
         }
 
-        handler.get(0).handle(query);
+        return handler.get(0).handle(query);
     }
 }
