@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface StockRepository extends CrudRepository<Stock, String> {
     Optional<Stock> findByProductCode(String productCode);
 
-    List<BaseEntity> findByAvailableStockGreaterThan(int amount);
+    List<Stock> findByAvailableStockGreaterThan(int amount);
 
-    List<BaseEntity> findByAvailableStockLessThan(int amount);
+    List<Stock> findByAvailableStockLessThan(int amount);
 }

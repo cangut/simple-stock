@@ -1,5 +1,6 @@
 package com.can.simplestock.query.domain;
 
+import com.can.simplestock.cqrsescore.domain.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.util.Date;
 @MappedSuperclass
 @SuperBuilder
 @NoArgsConstructor
-public abstract class BaseEntity {
+public abstract class AbstractStockEntity extends BaseEntity {
 
     @Id
     @Getter

@@ -15,7 +15,7 @@ import javax.persistence.Table;
 @SuperBuilder
 @Entity
 @Table
-public class Stock extends BaseEntity {
+public class Stock extends AbstractStockEntity {
     private String productName;
     private String productCode;
     private ProductType productType;
