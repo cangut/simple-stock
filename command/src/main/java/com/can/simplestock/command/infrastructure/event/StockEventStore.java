@@ -1,4 +1,4 @@
-package com.can.simplestock.command.infrastructure;
+package com.can.simplestock.command.infrastructure.event;
 
 import com.can.simplestock.command.domain.StockAggregate;
 import com.can.simplestock.command.domain.StockEventStoreRepository;

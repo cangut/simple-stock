@@ -1,4 +1,4 @@
-package com.can.simplestock.command.infrastructure;
+package com.can.simplestock.command.infrastructure.event;
 
 import com.can.simplestock.cqrsescore.messages.BaseEvent;
 import com.can.simplestock.cqrsescore.producers.EventProducer;
