@@ -1,6 +1,7 @@
 package com.can.simplestock.query.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
@@ -10,6 +11,7 @@ import java.util.Date;
 
 @MappedSuperclass
 @SuperBuilder
+@NoArgsConstructor
 public abstract class BaseEntity {
 
     @Id
