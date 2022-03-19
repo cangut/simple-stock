@@ -28,6 +28,7 @@ public class StockAggregate extends AggregateRoot {
                 .id(command.getId())
                 .productCode(command.getProductCode())
                 .productName(command.getProductName())
+                .productType(command.getProductType())
                 .availableStock(command.getAvailableStock())
                 .createdDate(new Date())
                 .build();
