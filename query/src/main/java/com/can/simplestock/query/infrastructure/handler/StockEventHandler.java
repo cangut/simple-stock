@@ -27,6 +27,7 @@ public class StockEventHandler implements EventHandler {
                 .productCode(event.getProductCode())
                 .productType(event.getProductType())
                 .availableStock(event.getAvailableStock())
+                .createdDate(event.getCreatedDate())
                 .build();
 
         repository.save(stock);

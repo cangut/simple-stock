@@ -35,7 +35,7 @@ services:
 
 networks:
   stock:
-    driver: bridge
+    name: stock
 
 volumes:
   postgres:
