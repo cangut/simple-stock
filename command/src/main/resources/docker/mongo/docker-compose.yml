@@ -9,8 +9,7 @@ services:
 
 volumes:
   mongodb_data_container:
-    
+
 networks:
   default:
-    external:
-      name: stock
+    name: stock

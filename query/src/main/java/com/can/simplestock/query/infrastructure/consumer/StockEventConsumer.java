@@ -30,18 +30,21 @@ public class StockEventConsumer implements EventConsumer {
     @Override
     @KafkaListener(topics = "StockIncreasedEvent", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(StockIncreasedEvent event, Acknowledgment ack) {
-
+        eventHandler.on(event);
+        ack.acknowledge();
     }
 
     @Override
     @KafkaListener(topics = "StockDecreasedEvent", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(StockDecreasedEvent event, Acknowledgment ack) {
-
+        eventHandler.on(event);
+        ack.acknowledge();
     }
 
     @Override
     @KafkaListener(topics = "StockClosedEvent", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(StockClosedEvent event, Acknowledgment ack) {
-
+        eventHandler.on(event);
+        ack.acknowledge();
     }
 }

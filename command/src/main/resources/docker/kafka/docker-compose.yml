@@ -30,8 +30,7 @@ volumes:
     driver: local
   kafka_data:
     driver: local
-    
+
 networks:
   default:
-    external:
-      name: stock
+    name: stock
