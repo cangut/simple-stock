@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class AggregateRoot {
+public abstract class AggregateRoot {
 
     @Getter
     protected String id;
