@@ -1,9 +1,6 @@
 package com.can.simplestock.command.infrastructure.command;
 
-import com.can.simplestock.command.api.commands.CloseStockCommand;
-import com.can.simplestock.command.api.commands.DecreaseStockCommand;
-import com.can.simplestock.command.api.commands.IncreaseStockCommand;
-import com.can.simplestock.command.api.commands.OpenStockCommand;
+import com.can.simplestock.command.api.commands.*;
 import com.can.simplestock.command.domain.StockAggregate;
 import com.can.simplestock.cqrsescore.handlers.EventSourcingHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,5 +45,10 @@ public class StockCommandHandler implements CommandHandler {
         var aggregate = eventSourcingHandler.getById(command.getId());
         aggregate.closeStock(command);
         eventSourcingHandler.save(aggregate);
+    }
+
+    @Override
+    public void handle(RestoreCommand command) {
+        eventSourcingHandler.republishEvents();
     }
 }

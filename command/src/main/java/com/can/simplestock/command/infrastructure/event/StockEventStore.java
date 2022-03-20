@@ -68,4 +68,16 @@ public class StockEventStore implements EventStore {
                 .map(EventModel::getEventData)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> getAggregateIds() {
+        var eventList = eventStoreRepository.findAll();
+        if(eventList.isEmpty()){
+            throw new IllegalStateException("Event store is empty.");
+        }
+        return eventList.stream()
+                .map(EventModel::getAggregateIdentifier)
+                .distinct()
+                .collect(Collectors.toList());
+    }
 }
