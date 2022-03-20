@@ -1,9 +1,6 @@
 package com.can.simplestock.command;
 
-import com.can.simplestock.command.api.commands.CloseStockCommand;
-import com.can.simplestock.command.api.commands.DecreaseStockCommand;
-import com.can.simplestock.command.api.commands.IncreaseStockCommand;
-import com.can.simplestock.command.api.commands.OpenStockCommand;
+import com.can.simplestock.command.api.commands.*;
 import com.can.simplestock.command.infrastructure.command.CommandHandler;
 import com.can.simplestock.cqrsescore.command.CommandDispatcher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +31,7 @@ public class CommandApplication {
 		commandDispatcher.registerHandler(IncreaseStockCommand.class, commandHandler::handle);
 		commandDispatcher.registerHandler(DecreaseStockCommand.class, commandHandler::handle);
 		commandDispatcher.registerHandler(CloseStockCommand.class, commandHandler::handle);
+		commandDispatcher.registerHandler(RestoreCommand.class, commandHandler::handle);
     }
 
 }
