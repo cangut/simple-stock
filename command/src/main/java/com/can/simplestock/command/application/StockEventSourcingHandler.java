@@ -1,4 +1,4 @@
-package com.can.simplestock.command.infrastructure.event;
+package com.can.simplestock.command.application;
 
 import com.can.simplestock.command.domain.StockAggregate;
 import com.can.simplestock.cqrsescore.domain.AggregateRoot;

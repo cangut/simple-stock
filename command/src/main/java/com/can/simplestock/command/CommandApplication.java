@@ -1,7 +1,7 @@
 package com.can.simplestock.command;
 
 import com.can.simplestock.command.api.commands.*;
-import com.can.simplestock.command.infrastructure.command.CommandHandler;
+import com.can.simplestock.command.application.CommandHandler;
 import com.can.simplestock.cqrsescore.command.CommandDispatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;

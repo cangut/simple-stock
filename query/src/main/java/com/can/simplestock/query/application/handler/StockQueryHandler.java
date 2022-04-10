@@ -1,4 +1,4 @@
-package com.can.simplestock.query.infrastructure.handler;
+package com.can.simplestock.query.application.handler;
 
 import com.can.simplestock.common.constants.EqualityType;
 import com.can.simplestock.query.api.queries.FindAllStock;
@@ -8,7 +8,7 @@ import com.can.simplestock.query.api.queries.FindStockByProductCode;
 
 import com.can.simplestock.query.domain.Stock;
 import com.can.simplestock.query.domain.StockRepository;
-import com.can.simplestock.query.infrastructure.QueryHandler;
+import com.can.simplestock.query.application.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

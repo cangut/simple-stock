@@ -1,4 +1,4 @@
-package com.can.simplestock.query.infrastructure;
+package com.can.simplestock.query.application;
 
 import com.can.simplestock.query.api.queries.FindAllStock;
 import com.can.simplestock.query.api.queries.FindStockByAmount;
