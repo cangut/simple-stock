@@ -1,4 +1,4 @@
-package com.can.simplestock.query.infrastructure.handler;
+package com.can.simplestock.query.application.handler;
 
 import com.can.simplestock.common.events.StockClosedEvent;
 import com.can.simplestock.common.events.StockDecreasedEvent;

@@ -1,4 +1,4 @@
-package com.can.simplestock.command.infrastructure.command;
+package com.can.simplestock.command.application;
 
 import com.can.simplestock.command.api.commands.*;
 import com.can.simplestock.command.domain.StockAggregate;

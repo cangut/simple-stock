@@ -5,7 +5,7 @@ import com.can.simplestock.query.api.queries.FindAllStock;
 import com.can.simplestock.query.api.queries.FindStockByAmount;
 import com.can.simplestock.query.api.queries.FindStockById;
 import com.can.simplestock.query.api.queries.FindStockByProductCode;
-import com.can.simplestock.query.infrastructure.QueryHandler;
+import com.can.simplestock.query.application.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

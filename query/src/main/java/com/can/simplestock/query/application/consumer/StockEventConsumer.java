@@ -1,10 +1,10 @@
-package com.can.simplestock.query.infrastructure.consumer;
+package com.can.simplestock.query.application.consumer;
 
 import com.can.simplestock.common.events.StockClosedEvent;
 import com.can.simplestock.common.events.StockDecreasedEvent;
 import com.can.simplestock.common.events.StockIncreasedEvent;
 import com.can.simplestock.common.events.StockOpenedEvent;
-import com.can.simplestock.query.infrastructure.handler.EventHandler;
+import com.can.simplestock.query.application.handler.EventHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
