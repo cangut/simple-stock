@@ -18,7 +18,7 @@
         <module>common</module>
         <module>command</module>
         <module>query</module>
-        <module>cqrs-es/cqrs-es-core</module>
+        <module>cqrs-es-core</module>
     </modules>
 
 </project>
