@@ -1,0 +1,70 @@
+version: "3.5"
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme}
+      POSTGRES_DB: ${POSTGRES_DB:-stock}
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    networks:
+      - stock
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    networks:
+      - stock
+    restart: unless-stopped
+
+  stock-query:
+    container_name: 'stock-query'
+    ports:
+      - "8001:8001"
+    networks:
+      - stock
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - postgres
+      - pgadmin
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8001 -Xms128m -Xmx256m"
+      - "SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/stock"
+      - "SERVER_PORT=8001"
+      - "SPRING_APPLICATION_NAME=stock-query"
+      - "SPRING_DATASOURCE_USERNAME=postgres"
+      - "SPRING_DATASOURCE_PASSWORD=changeme"
+      - "SPRING_JPA_HIBERNATE_DDL_AUTO=update"
+      - "SPRING_KAFKA_LISTENER_ACK-MODE=manual_immediate"
+      - "SPRING_KAFKA_CONSUMER_BOOTSTRAP-SERVERS=kafka:9092"
+      - "SPRING_KAFKA_CONSUMER_GROUP-ID=stockConsumer"
+      - "SPRING_KAFKA_CONSUMER_AUTO-OFFSET-RESET=earliest"
+      - "SPRING_KAFKA_CONSUMER_KEY-DESERIALIZER=org.apache.kafka.common.serialization.StringDeserializer"
+      - "SPRING_KAFKA_CONSUMER_VALUE-DESERIALIZER=org.springframework.kafka.support.serializer.JsonDeserializer"
+      - "SPRING_KAFKA_CONSUMER_PROPERTIES_SPRING_JSON_TRUSTED_PACKAGES=*"
+
+networks:
+  stock:
+    name: stock
+
+volumes:
+  postgres:
+  pgadmin:
