@@ -1,0 +1,65 @@
+version: "3.5"
+
+services:
+  zookeeper:
+    image: bitnami/zookeeper
+    restart: always
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+  kafka:
+    image: bitnami/kafka
+    ports:
+      - "9092:9092"
+    restart: always
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+    depends_on:
+      - zookeeper
+
+  mongodb_container:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+  stock-command:
+    container_name: 'stock-command'
+    ports:
+      - "8000:8000"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb_container
+      - kafka
+    environment:
+      - "JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -Xms128m -Xmx256m"
+      - "SPRING_DATASOURCE_URL=mongodb_container:27017/product"
+      - "SERVER_PORT=8000"
+      - "SPRING_APPLICATION_NAME=stock-command"
+      - "SPRING_DATA_MONGODB_PORT=27017"
+      - "SPRING_DATA_MONGODB_DATABASE=stock"
+      - "SPRING_DATA_MONGODB_HOST=mongodb_container"
+      - "SPRING_KAFKA_LISTENER_ACK-MODE=manual_immediate"
+      - "SPRING_KAFKA_PRODUCER_BOOTSTRAP-SERVERS=kafka:9092"
+      - "SPRING_KAFKA_PRODUCER_KEY-SERIALIZER=org.apache.kafka.common.serialization.StringSerializer"
+      - "SPRING_KAFKA_PRODUCER_VALUE-SERIALIZER=org.springframework.kafka.support.serializer.JsonSerializer"
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
+  mongodb_data_container:
+
+networks:
+  default:
+    name: stock
