@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public class DecreaseStockCommand extends BaseCommand {
-    private int amount;
+    private final int amount;
 }

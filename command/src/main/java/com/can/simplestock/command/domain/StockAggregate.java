@@ -4,6 +4,7 @@ import com.can.simplestock.command.api.commands.CloseStockCommand;
 import com.can.simplestock.command.api.commands.DecreaseStockCommand;
 import com.can.simplestock.command.api.commands.IncreaseStockCommand;
 import com.can.simplestock.command.api.commands.OpenStockCommand;
+import com.can.simplestock.common.constants.ProductType;
 import com.can.simplestock.common.events.StockClosedEvent;
 import com.can.simplestock.common.events.StockDecreasedEvent;
 import com.can.simplestock.common.events.StockIncreasedEvent;
@@ -20,6 +21,7 @@ public class StockAggregate extends AggregateRoot {
 
     private String productCode;
     private String productName;
+    private ProductType productType;
     private int availableInStock;
     private boolean active;
 
@@ -35,10 +37,23 @@ public class StockAggregate extends AggregateRoot {
         raiseEvent(stockOpenedEvent);
     }
 
+    protected void openStock(OpenStockCommand command) {
+        var stockOpenedEvent = StockOpenedEvent.builder()
+                .id(command.getId())
+                .productCode(command.getProductCode())
+                .productName(command.getProductName())
+                .productType(command.getProductType())
+                .availableStock(command.getAvailableStock())
+                .createdDate(new Date())
+                .build();
+        raiseEvent(stockOpenedEvent);
+    }
+
     private void apply(StockOpenedEvent event) {
         this.id = event.getId();
         this.productCode = event.getProductCode();
         this.productName = event.getProductName();
+        this.productType = event.getProductType();
         this.availableInStock = event.getAvailableStock();
         this.active = true;
     }
@@ -93,7 +108,7 @@ public class StockAggregate extends AggregateRoot {
         raiseEvent(closeStockEvent);
     }
 
-    public void apply(StockClosedEvent event) {
+    private void apply(StockClosedEvent event) {
         this.id = event.getId();
         this.active = false;
     }

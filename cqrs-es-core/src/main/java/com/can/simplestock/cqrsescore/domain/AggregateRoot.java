@@ -31,16 +31,20 @@ public abstract class AggregateRoot {
     }
 
     protected void applyChange(BaseEvent event, boolean isNew) {
+        boolean hasException = false;
         try {
             var method = getClass().getDeclaredMethod("apply", event.getClass());
             method.setAccessible(true);
             method.invoke(this, event);
         } catch (NoSuchMethodException e) {
-            logger.log(Level.WARNING, MessageFormat.format("apply method was not found in the aggregate for {0}", event.getClass().getName()));
+            hasException = true;
+            logger.log(Level.WARNING, MessageFormat.format("apply method was not found in the aggregate for {0}. Exception type: {1}",
+                    event.getClass().getName(), e.getClass()));
         } catch (Exception e) {
+            hasException = true;
             logger.log(Level.SEVERE, "Error occurred applying event");
         } finally {
-            if (isNew) {
+            if (isNew && !hasException) {
                 domainEvents.add(event);
             }
         }
