@@ -48,7 +48,7 @@ public class StockEventSourcingHandler implements EventSourcingHandler<StockAggr
     public void republishEvents() {
         var aggregateIds = eventStore.getAggregateIds();
         for (String aggregateId : aggregateIds) {
-            var aggregate = getById(aggregateId);
+            var aggregate = this.getById(aggregateId);
             if (aggregate == null || !aggregate.isActive()) continue;
             var events = eventStore.getEvents(aggregate.getId());
             for (BaseEvent event : events) {
