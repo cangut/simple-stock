@@ -26,6 +26,7 @@ public class DecreaseStockController {
     ResponseEntity<BaseResponse> decreaseStock(@PathVariable String id, @RequestBody DecreaseStockCommand command) {
         try {
             command.setId(id);
+            System.out.println("can");
             commandDispatcher.send(command);
             return new ResponseEntity<>(new BaseResponse("Decreasing stock is successful"), HttpStatus.OK);
         } catch (IllegalStateException e) {
